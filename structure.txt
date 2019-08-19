@@ -1,0 +1,49 @@
+state:
+	Field
+	actions: 
+		Grid = position(11-44), isEmpty, pawn("A1", "E5", Stone,Glass,Wood,Clay,Weet), canBeBuilt[подсветить возможные здания}, isBuilding{подсветить строящееся здание], isPlasingBuilding(подсветить место под здание)
+
+	stage ={initGame, choosingMaterial, takingMaterial, placingMaterial, placingBuilding, scoring}
+	action:  chooseMaterial(availableMaterial), 
+			takeMaterial(selectedMaterial),
+			placeMaterial(grid.position), 
+			selectBuildingType(buildingType)
+			selectBuildingMaterialPosition(gridsMaterial.position)
+			selectBuildingPosition(gridBuilding.position)			
+			placeBuilding(selectedBuilding, gridBuilding.position, gridsMaterial.position),
+			goToScoring
+	
+	arkhitector
+	availableBuildings
+	selectedMaterial
+	selectedBuilding
+	
+	AvailableBuildings
+	Building = pattern/matrix, property??? 
+	
+	Materials (5+?)
+	SelectedMaterial
+
+	
+	План такой:
+	выводим Field и 16 Gridов.
+	выводим набор доступных зданий (A1, B1..)
+	выводим 5 кликабельных ресурсов + выводим место для рандомного ресурса ? - подсветить при необходимости выбрать материал
+	выводим место для выбранного ресурса - выводим кликнутый из наших пяти, по клику на выбранный - переходим к размещению ресурса. - подсветить если нужно взять материал
+	если ресур выбран - подсветить Field, при клике на поле - размещаем материал на свободной клетке
+	после разрещаем или перейти к выбору материала по кнопке или выбрать здание
+	после или выбор материала или выбор ячеек на поле (подсвечена кнопка выбора материала, поле, togle кликнутые ячейки как isBuilding)
+	после или выбор места под здание или выбор материала
+	или размещение здание или выбор материала
+	при клике на выбор материала - если все места заняты - подсчет очков.
+	
+	позже проверять возможность правильного размещения здания
+	позже проверять возможность построить здание (соответствие паттерну)
+	потом подсвечивать доступные к постройке здания после установки material
+	рандом в выводе материалов сбалансировать согласно правил
+	скоринг
+	создание игры - вывод доступных зданий, определение первого игрока
+	
+	
+	
+	

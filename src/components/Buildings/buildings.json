@@ -1,0 +1,85 @@
+{
+    "EXAMPLE_BUILDING": {
+        "title": "",
+        "pattern": [],
+        "type": -1,
+        "ability": ""
+    },
+    "Cottage": {
+        "title": "Cottage",
+        "pattern": [
+            [12,"WHEAT" ],
+            [22,"GLASS"],
+            [21,"BRICK"]
+        ],
+        "type": 0,
+        "ability": "3 WP if this building is fed",
+        "toBeFed": 1
+    },
+    "Chapel": {
+        "title": "Chapel",
+        "pattern": [
+            [13,"GLASS"],
+            [21,"STONE"],
+            [22,"GLASS"],
+            [23,"STONE"]
+            
+        ],
+        "type": 1,
+        "ability": "1 WP for each fed Cottage"
+    },
+    "Farm": {
+        "title": "Farm",
+        "pattern": [
+            [11,"WHEAT" ],
+            [12,"WHEAT" ],
+            [22,"WOOD" ],
+            [21,"WOOD" ]
+        ],
+        "type": 2,
+        "ability": "Feeds 4 building anywhere in your town",
+        "canFeeds": 4
+    },
+    "Tavern": {
+        "title": "Tavern",
+        "pattern": [
+            [11,"BRICK"],
+            [12,"BRICK"],
+            [13,"GLASS"]
+        ],
+        "type": 3,
+        "ability": "WP based on your constracted Tavern: 1 - 2 WP, 2 - 5 WP, 3 - 9 WP, 4 - 14 WP, 5 - 20 WP"
+    },
+    "Well": {
+        "title": "Well",
+        "pattern": [
+            [12,"WOOD"],
+            [11,"STONE"]
+        ],
+        "type": 4,
+        "ability": "1 WP for each adjacent Cottage"
+    },
+    "Theatr": {
+        "title": "Theatr",
+        "pattern": [
+            [21,"WOOD" ],
+            [22,"GLASS" ],
+            [23,"WOOD" ],
+            [12,"STONE" ]
+        ],
+        "type": 5,
+        "ability": "1 WP for each other unique building type in the same row and column"
+    },
+    "Factory": {
+        "title": "Factory",
+        "pattern": [
+            [11,"WOOD" ],
+            [21,"BRICK" ],
+            [22,"STONE" ],
+            [23,"STONE" ],
+            [24,"BRICK" ]
+        ],
+        "type": 6,
+        "ability": "When constructed, select 1 of 5 resources. This resource becomes the wild."
+    }
+}
