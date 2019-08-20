@@ -26,6 +26,7 @@ class Building extends React.Component {
             }
         }
     }
+    //test
 
     componentDidMount() {
         //upload data from json
