@@ -6,7 +6,7 @@ import { fetchBuilding, selectPawn, changeMessage, selectSquare } from './../../
 import data from './buildings.json';
 import { message, GAME_PHASE, SCORING_PHASE } from './../constants';
 import { calcScore } from './scoring';
-import { rotateAndMirrorPattern, pointToIndex, preparedPattern } from './patternHandler'
+import { rotateAndMirrorPattern, pointToIndex, preparedPattern } from '../../trash/____patternHandler'
 
 class Building extends React.Component {
 
@@ -14,7 +14,7 @@ class Building extends React.Component {
         if (this.props.phase === GAME_PHASE) {
 
             const pp = preparedPattern(this.props.selectedPattern, this.props.board)
-            const ppp = pointToIndex(pp);
+            const ppp = pointToIndex(pp, "title");
             let canSelectPawn = this.props.building.patterns.find(pattern => _.isEqual(pattern, ppp));
             if (canSelectPawn) {
                 this.props.changeMessage(message.patternMatchesBuilding(this.props.building.title));
