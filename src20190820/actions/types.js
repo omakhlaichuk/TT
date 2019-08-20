@@ -1,0 +1,15 @@
+export const SELECT_SQUARE = 'SELECT_SQUARE';
+export const SELECT_PATTERN = 'SELECT_PATTERN';
+export const CLEAR_SELECTION = 'CLEAR_SELECTION';
+export const SELECT_PAWN = 'SELECT_PAWN';
+export const PLACE_RESOURCE = 'PLACE_RESOURCE';
+export const FEED_COTTAGES = 'FEED_COTTAGES';
+
+
+export const PLACE_BUILDING = 'PLACE_BUILDING';
+export const CHANGE_PHASE = 'CHANGE_PHASE';
+export const CHANGE_MESSAGE = "CHANGE_MESSAGE";
+
+export const FETCH_BUILDING = 'FETCH_BUILDING';
+
+export const NEW_GAME = 'NEW_GAME';
