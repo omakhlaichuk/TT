@@ -2,7 +2,7 @@ import _ from 'lodash';
 //                        style={style(resource[0] % 10, Math.floor(resource[0] / 10))}
 
 const d = (arr, index) => Math.min(...arr.map(cell => Number(cell[index]))) - 1;
-
+//123
 export const pointToIndex = (arr, title) => {
     //move to x=1, y=1
     const dx = d(arr, "x");
