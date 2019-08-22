@@ -27,13 +27,20 @@ class Building extends React.Component {
         }
     }
 
-    componentDidMount() {
+    loadBuilding() {
         //upload data from json
         const buildingForFetching = data[this.props.title];
         //add all variants of the pattern
         buildingForFetching.patterns = rotateAndMirrorPattern(buildingForFetching.pattern);
         //load Building to the state
         this.props.fetchBuilding(buildingForFetching);
+    }
+    componentDidMount() {
+        this.loadBuilding();
+    }
+
+    componentDidUpdate() {
+        if (!this.props.building) { this.loadBuilding(); }
     }
 
     renderPatternCheckOrScoring() {
@@ -51,7 +58,6 @@ class Building extends React.Component {
                 </button>
             )
         }
-
     }
 
     renderPattern() {

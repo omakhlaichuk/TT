@@ -104,7 +104,6 @@ const renderResources = phase => {
 
 const ToolbarWithResources = props => {
 
-
     return (
         <div className="resourceSelector">
             {renderResources(props.phase)}
