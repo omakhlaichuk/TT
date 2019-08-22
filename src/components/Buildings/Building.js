@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
-import { fetchBuilding, selectPawn, changeMessage, selectSquare } from './../../actions';
+import { fetchBuilding, selectPawn, changeMessage, selectSquare, scoreBuilding } from './../../actions';
 import data from './buildings.json';
 import { message, GAME_PHASE, SCORING_PHASE } from './../constants';
 import { calcScore } from './scoring';
@@ -36,10 +36,22 @@ class Building extends React.Component {
         this.props.fetchBuilding(buildingForFetching);
     }
 
-    renderScoring() {
+    renderPatternCheckOrScoring() {
         if (this.props.phase === SCORING_PHASE) {
-            return calcScore[this.props.building.title](this.props.board)
+            this.props.scoreBuilding(this.props.index, calcScore[this.props.building.title](this.props.board));
+            return <p>Score: {this.props.building.score}</p>;
         };
+        if (this.props.phase === GAME_PHASE) {
+            return (
+                <button
+                    onClick={() => this.selectBuilding()}
+                    disabled={!(this.props.selectedPattern.length === this.props.building.pattern.length)}
+                >
+                    Check the pattern
+                </button>
+            )
+        }
+
     }
 
     renderPattern() {
@@ -72,13 +84,7 @@ class Building extends React.Component {
                     </div>
                     <div className="buildingPattern"> {this.renderPattern()} </div>
                     <div className="buildingAbility">{this.props.building.ability} </div>
-                    <button
-                        onClick={() => this.selectBuilding()}
-                        disabled={!(this.props.selectedPattern.length === this.props.building.pattern.length)}
-                    >
-                        Check the pattern
-                     </button>
-                    {this.renderScoring()}
+                    {this.renderPatternCheckOrScoring()}
                 </div>
             );
         }
@@ -95,4 +101,4 @@ const mapStateToProps = (state, ownProps) => {
     }
 };
 
-export default connect(mapStateToProps, { fetchBuilding, selectPawn, changeMessage, selectSquare })(Building);
+export default connect(mapStateToProps, { fetchBuilding, selectPawn, changeMessage, selectSquare, scoreBuilding })(Building);

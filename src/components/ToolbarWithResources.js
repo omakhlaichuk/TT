@@ -3,13 +3,21 @@ import { connect } from 'react-redux';
 
 
 import Resource from './Resource';
-import { changePhaseTo, placeResource, clearSelection, changeMessage, placeBuilding, feedCottages, newGame } from '../actions';
+import {
+    changePhaseTo,
+    placeResource,
+    clearSelection,
+    changeMessage,
+    placeBuilding,
+    feedCottages,
+    newGame,
+    scoreTotal
+} from '../actions';
 import { calcFedCottages } from './Buildings/scoring';
 import {
     message,
     RESOURCE,
     FEEDING_PHASE,
-    EMPTY_SQUARE,
     SCORING_PHASE,
     GAME_PHASE
 } from './constants';
@@ -31,22 +39,20 @@ const nextRound = (props) => {
     switch (props.phase) {
 
         case GAME_PHASE:
-            props.clearSelection();
-            props.changeMessage("Переходим к кормежке?");
-            props.feedCottages(
-                calcFedCottages(props.board, props.buildings)
-            );
             props.changePhaseTo(FEEDING_PHASE);
+            props.clearSelection();
+            const fedCottages = calcFedCottages(props.board, props.buildings);
+            props.feedCottages(fedCottages);
+            props.changeMessage(message.goToFeedingPhase(fedCottages));
             break;
 
         case FEEDING_PHASE:
             props.changePhaseTo(SCORING_PHASE);
-            props.changeMessage("Переходим к подсчету очков?");
+            props.changeMessage(message.goToGamePhase);
             break;
 
         case SCORING_PHASE:
             props.changePhaseTo(GAME_PHASE);
-            props.changeMessage("начинаем новую игру");
             props.newGame();
             break;
 
@@ -55,12 +61,7 @@ const nextRound = (props) => {
     }
 };
 
-const renderButtons = props => {
-    //if board is full
-    if (!props.board.indexes.find(i => props.board[i] === EMPTY_SQUARE)) {
-        return <button onClick={() => nextRound(props)}>NEXT</button>;
-    }
-
+const renderPlacingButtons = props => {
     if (props.selectedSquare) {
         if (props.selectedPawn.type === RESOURCE) {
             return <button onClick={() => placeSelectedResource(props)}> PLACE RESOURCE</button>;
@@ -70,16 +71,49 @@ const renderButtons = props => {
     }
 }
 
+const totalScore = props => {
+    if (props.phase === SCORING_PHASE) {
+        let scoring = 0;
+        props.buildings.forEach(building => {
+            if (building.score) { scoring += building.score };
+        });
+
+        props.board.indexes.forEach(index => {
+            if (!(props.board[index].type >= 0)) {
+                scoring--;
+            }
+        })
+        props.scoreTotal(scoring);
+
+        return <p>Total score: {props.score}  </p>;
+    };
+}
+
+const renderResources = phase => {
+    if (phase === GAME_PHASE) {
+        return (
+            <>
+                Available resources:
+                <Resource id={0} />
+                <Resource id={1} />
+                <Resource id={2} />
+            </>
+        );
+    }
+}
+
 const ToolbarWithResources = props => {
+
 
     return (
         <div className="resourceSelector">
-            Resources
-            <Resource id={0} />
-            <Resource id={1} />
-            <Resource id={2} />
+            {renderResources(props.phase)}
+            {totalScore(props)}
             {props.message} <br />
-            {renderButtons(props)}
+            {renderPlacingButtons(props)}
+            <button onClick={() => nextRound(props)}>
+            {message.changePhaseBtn(props.phase)}
+            </button>
         </div>
     );
 };
@@ -91,8 +125,19 @@ const mapStateToProps = state => {
         phase: state.phase,
         board: state.board,
         buildings: state.buildings,
-        message: state.message
+        message: state.message,
+        score: state.score,
     }
 };
 
-export default connect(mapStateToProps, { changePhaseTo, placeResource, clearSelection, changeMessage, placeBuilding, feedCottages, newGame })(ToolbarWithResources);
+export default connect(mapStateToProps,
+    {
+        changePhaseTo,
+        placeResource,
+        clearSelection,
+        changeMessage,
+        placeBuilding,
+        feedCottages,
+        newGame,
+        scoreTotal
+    })(ToolbarWithResources);

@@ -6,9 +6,19 @@ export const message = {
     patternDoesNotMatchBuilding: building => `The pattern doesn't match the ${building}. Select another buiding, change the pattern or continue resource placing.`,
     patternMatchesBuilding: building => `The pattern matches the ${building}. Select a square for the ${building} placement. All corresponding resources will be removed. Or continue resource placing.`,
     confirmBuildingPlacement: building => `This is a suitable square for the ${building} placement. Confirm to remove marked resources for the building constraction. Also you can change square/building or select new resource.`,
-    successfulBuildingPlacement: "You've successfully placed the building! You can find another pattern or select new resource."
-
-
+    successfulBuildingPlacement: "You've successfully placed the building! You can find another pattern or select new resource.",
+    goToFeedingPhase: fedNum => (fedNum>1) ? `You fed ${fedNum} buildings.`: `You fed ${fedNum} building.`,
+    goToGamePhase: "You can start a new game!",
+    changePhaseBtn: phase => {
+        switch  (phase) {
+            default:
+            return "Finish the game";
+            case FEEDING_PHASE:
+            return "Go to scoring";
+            case SCORING_PHASE:
+            return "New game";
+        }
+    }
 }
 
 //phases
@@ -64,7 +74,8 @@ export const INITIAL_STATE = {
     buildings: [],
     initialBuilding: buildingsForFirstPlay,
     board: INITIAL_BOARD,
-    message: message.selectResource
+    message: message.selectResource,
+    score: 0,
 };
 
 

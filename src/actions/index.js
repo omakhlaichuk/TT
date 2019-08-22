@@ -8,13 +8,29 @@ import {
     FETCH_BUILDING,
     FEED_COTTAGES,
     CHANGE_PHASE,
-    CHANGE_MESSAGE, 
-    NEW_GAME
+    CHANGE_MESSAGE,
+    NEW_GAME,
+    SCORE_TOTAL,
+    SCORE_BUILDING
 } from './types';
 
 export const newGame = () => {
     return {
         type: NEW_GAME
+    };
+}
+
+export const scoreTotal = score => {
+    return {
+        type: SCORE_TOTAL,
+        payload: score
+    };
+}
+
+export const scoreBuilding = (buildingType, score) => {
+    return {
+        type: SCORE_BUILDING,
+        payload: { buildingType, score }
     };
 }
 

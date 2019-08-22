@@ -10,8 +10,10 @@ import {
     FETCH_BUILDING,
     FEED_COTTAGES,
     CHANGE_PHASE,
-    CHANGE_MESSAGE, 
-    NEW_GAME
+    CHANGE_MESSAGE,
+    NEW_GAME,
+    SCORE_TOTAL,
+    SCORE_BUILDING,
 } from '../actions/types'
 
 
@@ -21,6 +23,19 @@ export default (state = INITIAL_STATE, action) => {
 
         case NEW_GAME:
             return INITIAL_STATE;
+
+        case SCORE_TOTAL:
+            return { ...state, score: action.payload };
+
+        case SCORE_BUILDING:
+            return {
+                ...state, buildings: [...state.buildings, state.buildings.map(
+                    (building, type) => {
+                        if (type === action.payload.buildingType) { building.score = action.payload.score };
+                        return building
+                    }
+                )]
+            };
 
         case CHANGE_PHASE:
             return { ...state, phase: action.payload };
@@ -76,15 +91,3 @@ export default (state = INITIAL_STATE, action) => {
             return state;
     }
 };
-
-
-
-/*import { combineReducers } from 'redux';
-
-import selectedReducer from './selectedReducer';
-
-
-export default combineReducers({
-    selected:selectedReducer
-
-});*/

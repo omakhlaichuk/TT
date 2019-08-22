@@ -11,5 +11,6 @@ export const CHANGE_PHASE = 'CHANGE_PHASE';
 export const CHANGE_MESSAGE = "CHANGE_MESSAGE";
 
 export const FETCH_BUILDING = 'FETCH_BUILDING';
-
+export const SCORE_TOTAL = 'SCORE_TOTAL';
+export const SCORE_BUILDING = 'SCORE_BUILDING';
 export const NEW_GAME = 'NEW_GAME';
