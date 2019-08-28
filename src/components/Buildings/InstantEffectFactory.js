@@ -35,9 +35,9 @@ const InstantEffectFactory = props => {
                                 props.clearSelection();
                                 //return successfulBuildingPlacement message 
                                 props.changeMessage(message.successfulBuildingPlacement);
-                            }}
-                        >{message.instantEffectFactoryConfirm(props.selectedResourceTitle)}</button>
-
+                            }}>
+                            {message.instantEffectFactoryConfirm(props.selectedResourceTitle)}
+                        </button>
                     </div> : null}
         </div >,
         document.querySelector('.flexRow')
