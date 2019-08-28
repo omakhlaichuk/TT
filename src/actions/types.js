@@ -4,7 +4,7 @@ export const CLEAR_SELECTION = 'CLEAR_SELECTION';
 export const SELECT_PAWN = 'SELECT_PAWN';
 export const PLACE_RESOURCE = 'PLACE_RESOURCE';
 export const FEED_COTTAGES = 'FEED_COTTAGES';
-
+export const WILD_RESOURCE = 'WILD_RESOURCE';
 
 export const PLACE_BUILDING = 'PLACE_BUILDING';
 export const CHANGE_PHASE = 'CHANGE_PHASE';

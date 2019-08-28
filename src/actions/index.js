@@ -11,7 +11,8 @@ import {
     CHANGE_MESSAGE,
     NEW_GAME,
     SCORE_TOTAL,
-    SCORE_BUILDING
+    SCORE_BUILDING,
+    WILD_RESOURCE,
 } from './types';
 
 export const newGame = () => {
@@ -98,5 +99,11 @@ export const feedCottages = cottages => {
     return {
         type: FEED_COTTAGES,
         payload: cottages
+    };
+}
+
+export const changeResourceToWild = () => {
+    return {
+        type: WILD_RESOURCE,
     };
 }

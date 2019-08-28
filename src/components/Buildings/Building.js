@@ -40,6 +40,7 @@ class Building extends React.Component {
     }
 
     componentDidUpdate() {
+        //fetching building data if the game restarted
         if (!this.props.building) { this.loadBuilding(); }
     }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-
+import InstantEffectFactory from './Buildings/InstantEffectFactory'
 import Resource from './Resource';
 import {
     changePhaseTo,
@@ -30,10 +30,21 @@ const placeSelectedResource = props => {
     props.changeMessage(message.showPattern);
 };
 
+let instantEffect = null;
+const completeInstantEffect = () => {
+    instantEffect = null
+};
 const placeSelectedBuilding = props => {
-    props.placeBuilding();
+    //invoke the building instant effect if present
+    if (props.selectedPawn.instantEffect) {
+        props.placeBuilding();
+        instantEffect = < InstantEffectFactory completeInstantEffect={completeInstantEffect} />;
+    } else { props.placeBuilding(); };
+
     props.changeMessage(message.successfulBuildingPlacement);
+
 }
+
 
 const nextRound = (props) => {
     switch (props.phase) {
@@ -111,8 +122,10 @@ const ToolbarWithResources = props => {
             {props.message} <br />
             {renderPlacingButtons(props)}
             <button onClick={() => nextRound(props)}>
-            {message.changePhaseBtn(props.phase)}
+                {message.changePhaseBtn(props.phase)}
             </button>
+            {//render instant effects after building placement
+            instantEffect}
         </div>
     );
 };

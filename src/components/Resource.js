@@ -2,25 +2,40 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { selectPawn, changePhaseTo, changeMessage, clearSelection } from '../actions';
-import { message } from './constants';
+import { WILD, ALL_RESOURCES} from './constants';
+import ResourceBtn from './ResourceBtn';
 
 class Resource extends React.Component {
-
+/*
     resourceSelection = resource => {
+        //select resource
         this.props.clearSelection();
         this.props.selectPawn(resource);
         this.props.changeMessage(message.placeResource(resource.title));
+
     }
 
+    renderResourceBtn = resource => {
+        return <button
+            key={resource.title}
+            onClick={() => { this.resourceSelection(resource) }}
+            className={`${resource.title.toLowerCase()} resourceBtn`}
+        ></button>
+    }
+*/
     render() {
         if (!this.props.resource) { return null };
         return (
             <div>
-                <button
-                    onClick={() => { this.resourceSelection(this.props.resource) }}
-                    className={`${this.props.resource.title.toLowerCase()} resourceBtn`}
-                ></button>
-                {this.props.resource.title.toLowerCase()}
+                {`${this.props.resource.title.toLowerCase()}: `}
+                {this.props.resource === WILD ?
+                    ALL_RESOURCES.map(
+                        resource => {
+                            return  <ResourceBtn key={resource.title} resource={ {...resource, fromWild:true} } />; //this.renderResourceBtn({...resource, fromWild:true})
+                        })
+                    : <ResourceBtn resource={this.props.resource} />
+                }
+                {}
             </div>
         );
     }

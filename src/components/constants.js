@@ -9,6 +9,8 @@ export const message = {
     successfulBuildingPlacement: "You've successfully placed the building! You can find another pattern or select new resource.",
     goToFeedingPhase: fedNum => (fedNum>1) ? `You fed ${fedNum} buildings.`: `You fed ${fedNum} building.`,
     goToGamePhase: "You can start a new game!",
+    instantEffectFactoryConfirm: resource => `Confirm changing ${resource.toLowerCase()} to the wild`,
+    instantEffectFactoryChoose: "Сhoose a resource to turn into the wild:",
     changePhaseBtn: phase => {
         switch  (phase) {
             default:
@@ -34,6 +36,8 @@ export const STONE = { title: "STONE", type: RESOURCE };
 export const BRICK = { title: "BRICK", type: RESOURCE };
 export const WHEAT = { title: "WHEAT", type: RESOURCE };
 export const GLASS = { title: "GLASS", type: RESOURCE };
+export const WILD = { title: "WILD", type: RESOURCE };
+export const ALL_RESOURCES = [WOOD, STONE, BRICK, WHEAT, GLASS];
 
 export const buildingsForFirstPlay =   ["Cottage", "Chapel", "Farm", "Tavern", "Well", "Theatr", "Factory"];
 
@@ -44,6 +48,7 @@ const INITIAL_BOARD = {
 INITIAL_BOARD.indexes.forEach(index => {
     INITIAL_BOARD[index] = EMPTY_SQUARE;
 });
+
 
 //Prepare random list of resources
 const shuffle = () => {
@@ -77,8 +82,3 @@ export const INITIAL_STATE = {
     message: message.selectResource,
     score: 0,
 };
-
-
-
-
-

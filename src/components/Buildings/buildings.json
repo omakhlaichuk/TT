@@ -80,6 +80,7 @@
             [24,"BRICK" ]
         ],
         "type": 6,
-        "ability": "When constructed, select 1 of 5 resources. This resource becomes the wild."
+        "ability": "When constructed, select 1 of 5 resources. This resource becomes the wild.",
+        "instantEffect": true
     }
 }

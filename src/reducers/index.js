@@ -1,4 +1,4 @@
-import { INITIAL_STATE, EMPTY_SQUARE, RESOURCE } from './../components/constants';
+import { INITIAL_STATE, EMPTY_SQUARE, RESOURCE, WILD } from './../components/constants';
 
 import {
     SELECT_PAWN,
@@ -14,6 +14,7 @@ import {
     NEW_GAME,
     SCORE_TOTAL,
     SCORE_BUILDING,
+    WILD_RESOURCE,
 } from '../actions/types'
 
 
@@ -63,12 +64,17 @@ export default (state = INITIAL_STATE, action) => {
 
         //find placing recourse and move it to the end of line. Update Board with the recourse. Clear "selected"
         case PLACE_RESOURCE:
-            const moveFromIndex = state.resources.indexOf(state.selectedPawn);
+            //if resourse from wild - search for WILD 
+            const moveFromIndex = state.resources.indexOf(
+                state.selectedPawn.fromWild ? WILD : state.selectedPawn
+            );
+            // remove fromWild property
+            const selectedPawn = { title: state.selectedPawn.title, type: RESOURCE }
             const movingResource = state.resources[moveFromIndex];
             state.resources.splice(moveFromIndex, 1);
             return {
                 ...state,
-                board: { ...state.board, [state.selectedSquare]: state.selectedPawn },
+                board: { ...state.board, [state.selectedSquare]: selectedPawn },
                 selectedSquare: null,
                 selectedPawn: {},
                 resources: [...state.resources, movingResource]
@@ -86,6 +92,8 @@ export default (state = INITIAL_STATE, action) => {
         case FEED_COTTAGES:
             return { ...state, board: { ...state.board, fedCottages: action.payload } };
 
+        case WILD_RESOURCE:
+            return { ...state, resources: state.resources.map(resource => resource === state.selectedPawn ? WILD : resource) };
 
         default:
             return state;

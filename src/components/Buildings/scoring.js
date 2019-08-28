@@ -112,7 +112,3 @@ export const calcFedCottages = (board, buildings) => {
     if (needFood > producedFood) { return Math.floor(producedFood / buildings[0].toBeFed) };
     return cottageNum;
 }
-
-
-
-
