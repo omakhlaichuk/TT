@@ -31,7 +31,7 @@ class Resource extends React.Component {
                 {this.props.resource === WILD ?
                     ALL_RESOURCES.map(
                         resource => {
-                            return  <ResourceBtn key={resource.title} resource={ {...resource, fromWild:true} } />; //this.renderResourceBtn({...resource, fromWild:true})
+                            return  <ResourceBtn key={resource.title} resource={ {...resource, fromWild:true} } />; 
                         })
                     : <ResourceBtn resource={this.props.resource} />
                 }

@@ -5,13 +5,14 @@ import ResourceBtn from '../ResourceBtn';
 
 import { changeResourceToWild, clearSelection, changeMessage } from '../../actions';
 import { ALL_RESOURCES, message } from '../constants';
+import styles from  './../../css/InstantEffectFactory.module.css';
 
 
 const InstantEffectFactory = props => {
 
     //above Board and ToolbarWithResourse
     return ReactDOM.createPortal(
-        <div className="instantEffectFactory">
+        <div className={styles.instantEffectFactory}>
             <div className="header"> {message.instantEffectFactoryChoose}</div>
             <div className="content">
                 <p> {
@@ -40,7 +41,7 @@ const InstantEffectFactory = props => {
                         </button>
                     </div> : null}
         </div >,
-        document.querySelector('.flexRow')
+        document.querySelector('#toolbarBoard')
     )
 };
 

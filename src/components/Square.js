@@ -7,6 +7,8 @@ import {
     EMPTY_SQUARE,
     RESOURCE
 } from './constants';
+import styles from '../css/Square.module.css';
+
 
 class Square extends React.Component {
 
@@ -48,15 +50,15 @@ class Square extends React.Component {
 
     render() {
         //style cells
-        let squareCalss = "";
+        let squareCalss = styles.square;
         if (this.props.selectedSquare === this.props.index) {
-            squareCalss += " selectedSquare ";
+            squareCalss += ` ${styles.selectedSquare} `;
             //console.log(this.props.selectedPawn.type);
             if (this.props.selectedPawn.type === RESOURCE) { squareCalss += this.props.selectedPawn.title.toLowerCase() }
 
         }
-        if (this.props.selectedPattern.find(el => el === this.props.index)) { squareCalss += " patternedSquare " }
-        if (this.props.square.type === RESOURCE) { squareCalss += this.props.square.title.toLowerCase() }
+        if (this.props.selectedPattern.find(el => el === this.props.index)) { squareCalss += ` ${styles.patternedSquare} ` }
+        if (this.props.square.type === RESOURCE) { squareCalss += ` ${this.props.square.title.toLowerCase()} ` }
 
         return (
             <li className={squareCalss} onClick={() => { this.onCellClick() }}>

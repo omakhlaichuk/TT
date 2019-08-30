@@ -1,0 +1,9 @@
+.flexRow {
+  width: 609px;
+  border: solid 1px black;
+  display:flex;
+flex-direction:row;
+justify-content: space-around;
+position: relative;
+
+}

@@ -3,13 +3,14 @@ import { connect } from 'react-redux';
 
 
 import Square from './Square';
-import '../css/board.css';
+import styles from '../css/Board.module.css';
 
 
 const Board = (props) => {
 
+  //4*4 board
   return (
-    <div className="board">
+    <div className={styles.board}>
       <ul>
         {props.indexes.map((value) => <Square key={value} index={value} />)}
       </ul>

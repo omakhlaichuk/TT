@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 
 import { selectPawn, clearSelection, changeMessage } from '../actions';
 import { message } from './constants';
+import styles from  './../css/ResourceBtn.module.css';
+
 
 
 const ResourceBtn = props => {
@@ -18,7 +20,7 @@ const ResourceBtn = props => {
     return <button
             key={props.resource.title}
             onClick={() => { resourceSelection(props.resource) }}
-            className={`${props.resource.title.toLowerCase()} resourceBtn`}
+            className={`${props.resource.title.toLowerCase()} ${styles.resourceBtn}`}
         ></button>
 };
 

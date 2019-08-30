@@ -21,8 +21,7 @@ import {
     SCORING_PHASE,
     GAME_PHASE
 } from './constants';
-import '../css/resources.css';
-
+import styles from  './../css/ToolbarWithResources.module.css';
 
 const placeSelectedResource = props => {
     props.placeResource();
@@ -116,7 +115,7 @@ const renderResources = phase => {
 const ToolbarWithResources = props => {
 
     return (
-        <div className="resourceSelector">
+        <div className={styles.resourceSelector}>
             {renderResources(props.phase)}
             {totalScore(props)}
             {props.message} <br />

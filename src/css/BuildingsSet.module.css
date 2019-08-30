@@ -1,0 +1,6 @@
+.buildings{
+    display: grid;
+    align-content: space-around;
+    justify-content: start;	
+    grid-template-columns: 204px 204px 204px 204px;
+}

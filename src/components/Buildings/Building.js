@@ -6,7 +6,9 @@ import { fetchBuilding, selectPawn, changeMessage, selectSquare, scoreBuilding }
 import data from './buildings.json';
 import { message, GAME_PHASE, SCORING_PHASE } from './../constants';
 import { calcScore } from './scoring';
-import { rotateAndMirrorPattern, pointToIndex, preparedPattern } from '../../trash/____patternHandler'
+import { rotateAndMirrorPattern, pointToIndex, preparedPattern } from '../../trash/____patternHandler';
+import styles from  './../../css/Building.module.css';
+
 
 class Building extends React.Component {
 
@@ -72,7 +74,7 @@ class Building extends React.Component {
             <>
                 {this.props.building.pattern.map(
                     resource => <div key={resource[0]}
-                        className={`resource ${resource[1].toLowerCase()}`}
+                        className={`${styles.resource} ${resource[1].toLowerCase()}`}
                         style={style(resource[0] % 10, Math.floor(resource[0] / 10))}
                     ></div>
                 )}
@@ -85,12 +87,12 @@ class Building extends React.Component {
             return null;
         } else {
             return (
-                <div className="building">
-                    <div className="buildingTitle">{this.props.building.title}
+                <div className={styles.building}>
+                    <div className={styles.buildingTitle}>{this.props.building.title}
                         <img src={`/images/${this.props.building.type}.png`} alt={this.props.building.type} />
                     </div>
-                    <div className="buildingPattern"> {this.renderPattern()} </div>
-                    <div className="buildingAbility">{this.props.building.ability} </div>
+                    <div className={styles.buildingPattern}> {this.renderPattern()} </div>
+                    <div className={styles.buildingAbility}>{this.props.building.ability} </div>
                     {this.renderPatternCheckOrScoring()}
                 </div>
             );
