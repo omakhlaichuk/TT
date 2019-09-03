@@ -6,7 +6,7 @@ import { fetchBuilding, selectPawn, changeMessage, selectSquare, scoreBuilding }
 import data from './buildings.json';
 import { message, GAME_PHASE, SCORING_PHASE } from './../constants';
 import { calcScore } from './scoring';
-import { rotateAndMirrorPattern, pointToIndex, preparedPattern } from '../../trash/____patternHandler';
+import { rotateAndMirrorPattern, pointToIndex, preparedPattern } from './patternHandler';
 import styles from  './../../css/Building.module.css';
 
 
