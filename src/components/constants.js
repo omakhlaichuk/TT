@@ -14,7 +14,7 @@ export const message = {
     changePhaseBtn: phase => {
         switch  (phase) {
             default:
-            return "Finish the game";
+            return "Score & finish the game";
             case FEEDING_PHASE:
             return "Go to scoring";
             case SCORING_PHASE:

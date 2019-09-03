@@ -1,0 +1,16 @@
+
+.roundOverview {
+    width: 400px;
+    margin-left: 4px;
+    align-content: space-between;
+    justify-content: center;	
+}
+
+.currentUserAction {
+    font-weight: bold; 
+}
+
+.roundOverview button { 
+    position: absolute;
+     right: 0;
+}

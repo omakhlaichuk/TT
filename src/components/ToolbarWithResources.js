@@ -9,15 +9,11 @@ import {
     clearSelection,
     changeMessage,
     placeBuilding,
-    feedCottages,
-    newGame,
     scoreTotal
 } from '../actions';
-import { calcFedCottages } from './Buildings/scoring';
 import {
     message,
     RESOURCE,
-    FEEDING_PHASE,
     SCORING_PHASE,
     GAME_PHASE
 } from './constants';
@@ -44,32 +40,6 @@ const placeSelectedBuilding = props => {
 
 }
 
-
-const nextRound = (props) => {
-    switch (props.phase) {
-
-        case GAME_PHASE:
-            props.changePhaseTo(FEEDING_PHASE);
-            props.clearSelection();
-            const fedCottages = calcFedCottages(props.board, props.buildings);
-            props.feedCottages(fedCottages);
-            props.changeMessage(message.goToFeedingPhase(fedCottages));
-            break;
-
-        case FEEDING_PHASE:
-            props.changePhaseTo(SCORING_PHASE);
-            props.changeMessage(message.goToGamePhase);
-            break;
-
-        case SCORING_PHASE:
-            props.changePhaseTo(GAME_PHASE);
-            props.newGame();
-            break;
-
-        default:
-            props.changeMessage('зачем нажимать? - нужно лочить кнопку!!!');
-    }
-};
 
 const renderPlacingButtons = props => {
     if (props.selectedSquare) {
@@ -120,9 +90,7 @@ const ToolbarWithResources = props => {
             {totalScore(props)}
             {props.message} <br />
             {renderPlacingButtons(props)}
-            <button onClick={() => nextRound(props)}>
-                {message.changePhaseBtn(props.phase)}
-            </button>
+            
             {//render instant effects after building placement
             instantEffect}
         </div>
@@ -148,7 +116,5 @@ export default connect(mapStateToProps,
         clearSelection,
         changeMessage,
         placeBuilding,
-        feedCottages,
-        newGame,
-        scoreTotal
+        scoreTotal,
     })(ToolbarWithResources);
