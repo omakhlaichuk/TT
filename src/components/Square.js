@@ -1,18 +1,36 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 
-import { selectSquare, selectPattern, changeMessage } from './../actions';
+
+import { selectSquare, selectPattern, selectPawn, changeMessage } from './../actions';
+import { pointToIndex, preparePattern } from './Buildings/patternHandler';
 import {
     message,
     EMPTY_SQUARE,
-    RESOURCE
+    GAME_PHASE,
+    RESOURCE,
 } from './constants';
 import styles from '../css/Square.module.css';
 
 
 class Square extends React.Component {
 
-    onCellClick(phase) {
+    //add the building to the selectedPawn if pattern match
+    selectBuilding(building, pattern) {
+        if (this.props.phase === GAME_PHASE) {
+
+            const preparedPattern = pointToIndex(preparePattern(pattern, this.props.board), "title");
+            let canSelectPawn = building.patterns.find(pattern => _.isEqual(pattern, preparedPattern));
+
+            if (canSelectPawn) {
+                this.props.changeMessage(message.patternMatchesBuilding(building.title));
+                this.props.selectPawn(building);
+            }
+        }
+    }
+
+    onCellClick() {
         const filling = this.props.square;
 
         //select empty square for resource placing
@@ -33,7 +51,16 @@ class Square extends React.Component {
 
         //mark square as pattern
         if (!this.props.selectedPawn.title && filling.type === RESOURCE) {
-            this.props.selectPattern(this.props.index);
+            let updatedPattern;
+            //remove or add index to selectedPattern
+            if (this.props.selectedPattern.find(cell => cell === this.props.index)) {
+                updatedPattern = this.props.selectedPattern.filter(el => el !== this.props.index);
+            } else {
+                updatedPattern = [...this.props.selectedPattern, this.props.index]
+            }
+            this.props.selectPattern(updatedPattern);
+            //check new pattern
+            this.props.buildings.forEach(building => this.selectBuilding(building, updatedPattern));
         }
     }
 
@@ -51,9 +78,25 @@ class Square extends React.Component {
     render() {
         //style cells
         let squareCalss = styles.square;
+
+        //style cursor as building
+        if (this.props.selectedPawn.type >= 0) {
+            if (this.props.selectedPattern.find(cell => cell === this.props.index)) {
+                squareCalss += ` ${styles[`cursor${this.props.selectedPawn.type}`]}`
+            }
+            else {
+                squareCalss += ` ${styles[`cursor${this.props.selectedPawn.type}cannot`]}`
+            }
+        };
+
+        //style cursor as resource
+        if (this.props.selectedPawn.type === RESOURCE && this.props.square === EMPTY_SQUARE) {
+            squareCalss += ` ${styles[`cursor${this.props.selectedPawn.title}`]}`
+
+        }
+
         if (this.props.selectedSquare === this.props.index) {
             squareCalss += ` ${styles.selectedSquare} `;
-            //console.log(this.props.selectedPawn.type);
             if (this.props.selectedPawn.type === RESOURCE) { squareCalss += this.props.selectedPawn.title.toLowerCase() }
 
         }
@@ -74,9 +117,11 @@ const mapStateToProps = (state, ownProps) => {
         selectedSquare: state.selectedSquare,
         selectedPattern: state.selectedPattern,
         selectedPawn: state.selectedPawn,
-        phase: state.phase
+        phase: state.phase,
+        buildings: state.buildings,
+        board: state.board,
     }
 };
 
-export default connect(mapStateToProps, { selectSquare, selectPattern, changeMessage })(Square);
+export default connect(mapStateToProps, { selectSquare, selectPattern, selectPawn, changeMessage })(Square);
 

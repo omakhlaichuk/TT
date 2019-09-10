@@ -1,9 +1,4 @@
 
-  /*.grid > div:hover {
-    background: rgb(238, 26, 89);
-    
-  }*/
-/****************************************************************/
 
     .board {
       display: flex;
@@ -12,6 +7,7 @@
       background: lightcyan;
       align-items: center;
       justify-content: center;
+
     }
 
     .board ul {
@@ -21,10 +17,9 @@
       margin: 0 auto;
       max-width: 64em;
       padding: 1px;
-      
     }
     
-
+   
    
     
 

@@ -51,10 +51,7 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, selectedSquare: action.payload };
 
         case SELECT_PATTERN:
-            if (state.selectedPattern.find(el => el === action.payload)) {
-                return { ...state, selectedPattern: state.selectedPattern.filter(el => el !== action.payload) };
-            }
-            return { ...state, selectedPattern: [...state.selectedPattern, action.payload] };
+            return { ...state, selectedPattern: action.payload };
 
         case CLEAR_SELECTION:
             return { ...state, selectedSquare: null, selectedPattern: [], selectedPawn: {} };

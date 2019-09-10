@@ -9,8 +9,3 @@
 .currentUserAction {
     font-weight: bold; 
 }
-
-.roundOverview button { 
-    position: absolute;
-     right: 0;
-}

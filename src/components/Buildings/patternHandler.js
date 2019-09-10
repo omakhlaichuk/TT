@@ -19,7 +19,7 @@ export const pointToIndex = (arr, title) => {
     }).sort((a, b) => { return a[0] - b[0] });
 }
 
-export const preparedPattern = (pattern, board) => {
+export const preparePattern = (pattern, board) => {
 
     const preparedPattern = pattern.map(cell => {
         return {

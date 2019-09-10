@@ -7,12 +7,12 @@ import styles from '../css/Board.module.css';
 
 
 const Board = (props) => {
-
-  //4*4 board
+  let boardClass = styles.board
   return (
-    <div className={styles.board}>
+    <div className={boardClass}>
       <ul>
-        {props.indexes.map((value) => <Square key={value} index={value} />)}
+        {props.indexes.map((value) => <Square key={value} index={value}
+        />)}
       </ul>
     </div>
   );
@@ -20,7 +20,8 @@ const Board = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    indexes: state.board.indexes
+    indexes: state.board.indexes,
+    selectedPawn: state.selectedPawn,
   }
 };
 

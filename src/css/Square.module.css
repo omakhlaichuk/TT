@@ -48,6 +48,86 @@
 
     }
 
+    .cursor0{     
+      cursor: url("/images/0.png"), auto;
+    }
+    
+    .cursor1{     
+      cursor: url("/images/1.png"), auto;
+    }
+    
+    .cursor2{     
+      cursor: url("/images/2.png"), auto;
+    }
+    
+    .cursor3{     
+      cursor: url("/images/3.png"), auto;
+    }
+    
+    .cursor4{     
+      cursor: url("/images/4.png"), auto;
+    }
+    
+    .cursor5{     
+      cursor: url("/images/5.png"), auto;
+    }
+    
+    .cursor6{     
+      cursor: url("/images/6.png"), auto;
+    }
+    
+    .cursor7{     
+      cursor: url("/images/7.png"), auto;
+    }
+
+    .cursor0cannot{     
+      cursor: url("/images/0cannot.png"), auto;
+    }
+    
+    .cursor1cannot{     
+      cursor: url("/images/1cannot.png"), auto;
+    }
+    
+    .cursor2cannot{     
+      cursor: url("/images/2cannot.png"), auto;
+    }
+    
+    .cursor3cannot{     
+      cursor: url("/images/3cannot.png"), auto;
+    }
+    
+    .cursor4cannot{     
+      cursor: url("/images/4cannot.png"), auto;
+    }
+    
+    .cursor5cannot{    
+      cursor: url("/images/5cannot.png"), auto;
+    }
+    
+    .cursor6cannot{     
+      cursor: url("/images/6cannot.png"), auto;
+    }
+    
+    .cursor7cannot{     
+      cursor: url("/images/7cannot.png"), auto;
+    }
+
+    .cursorWOOD{     
+      cursor: url("/images/wood.png"), auto;
+    }
+    .cursorSTONE{     
+      cursor: url("/images/stone.png"), auto;
+    }
+    .cursorWHEAT{     
+      cursor: url("/images/wheat.png"), auto;
+    } 
+    .cursorGLASS{     
+      cursor: url("/images/glass.png"), auto;
+    }
+    .cursorBRICK{     
+      cursor: url("/images/brick.png"), auto;
+    }
+
     /********************************************/
 
 

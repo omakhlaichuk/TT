@@ -1,33 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import _ from 'lodash';
 
 import { fetchBuilding, selectPawn, changeMessage, selectSquare, scoreBuilding } from './../../actions';
 import data from './buildings.json';
-import { message, GAME_PHASE, SCORING_PHASE } from './../constants';
+import { SCORING_PHASE } from './../constants';
 import { calcScore } from './scoring';
-import { rotateAndMirrorPattern, pointToIndex, preparedPattern } from './patternHandler';
+import { rotateAndMirrorPattern, } from './patternHandler';
 import styles from  './../../css/Building.module.css';
 
 
 class Building extends React.Component {
-
-    selectBuilding() {
-        if (this.props.phase === GAME_PHASE) {
-
-            const pp = preparedPattern(this.props.selectedPattern, this.props.board)
-            const ppp = pointToIndex(pp, "title");
-            let canSelectPawn = this.props.building.patterns.find(pattern => _.isEqual(pattern, ppp));
-            if (canSelectPawn) {
-                this.props.changeMessage(message.patternMatchesBuilding(this.props.building.title));
-                this.props.selectPawn(this.props.building);
-            } else {
-                this.props.selectPawn({});
-                this.props.selectSquare(null);
-                this.props.changeMessage(message.patternDoesNotMatchBuilding(this.props.building.title));
-            }
-        }
-    }
 
     loadBuilding() {
         //upload data from json
@@ -46,21 +28,11 @@ class Building extends React.Component {
         if (!this.props.building) { this.loadBuilding(); }
     }
 
-    renderPatternCheckOrScoring() {
+    renderScoring() {
         if (this.props.phase === SCORING_PHASE) {
             this.props.scoreBuilding(this.props.index, calcScore[this.props.building.title](this.props.board));
             return <p>Score: {this.props.building.score}</p>;
         };
-        if (this.props.phase === GAME_PHASE) {
-            return (
-                <button
-                    onClick={() => this.selectBuilding()}
-                    disabled={!(this.props.selectedPattern.length === this.props.building.pattern.length)}
-                >
-                    Check the pattern
-                </button>
-            )
-        }
     }
 
     renderPattern() {
@@ -93,7 +65,7 @@ class Building extends React.Component {
                     </div>
                     <div className={styles.buildingPattern}> {this.renderPattern()} </div>
                     <div className={styles.buildingAbility}>{this.props.building.ability} </div>
-                    {this.renderPatternCheckOrScoring()}
+                    {this.renderScoring()}
                 </div>
             );
         }

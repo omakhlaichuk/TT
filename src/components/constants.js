@@ -3,7 +3,6 @@ export const message = {
     confirmResourcePlacement: resource => `Confirm placement ${resource.toLowerCase()} on chosen square or select another resource/square.`,
     selectResource: "Choose 1 of 3 available resources.",
     showPattern: "Select resources for building constraction. Then select the building for pattern check. Or continue resource placing.",
-    patternDoesNotMatchBuilding: building => `The pattern doesn't match the ${building}. Select another buiding, change the pattern or continue resource placing.`,
     patternMatchesBuilding: building => `The pattern matches the ${building}. Select a square for the ${building} placement. All corresponding resources will be removed. Or continue resource placing.`,
     confirmBuildingPlacement: building => `This is a suitable square for the ${building} placement. Confirm to remove marked resources for the building constraction. Also you can change square/building or select new resource.`,
     successfulBuildingPlacement: "You've successfully placed the building! You can find another pattern or select new resource.",

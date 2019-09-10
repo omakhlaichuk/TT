@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import InstantEffectFactory from './Buildings/InstantEffectFactory'
+import InstantEffectFactory from './Buildings/InstantEffectFactory';
+import { calcFedCottages } from './Buildings/scoring';
 import Resource from './Resource';
 import {
     changePhaseTo,
@@ -9,45 +10,94 @@ import {
     clearSelection,
     changeMessage,
     placeBuilding,
-    scoreTotal
+    scoreTotal,
+    selectPawn,
+    selectSquare,
+    newGame,
+    feedCottages,
 } from '../actions';
 import {
     message,
     RESOURCE,
+    FEEDING_PHASE,
     SCORING_PHASE,
     GAME_PHASE
 } from './constants';
-import styles from  './../css/ToolbarWithResources.module.css';
+import styles from './../css/ToolbarWithResources.module.css';
 
-const placeSelectedResource = props => {
-    props.placeResource();
-    props.clearSelection();
-    props.changeMessage(message.showPattern);
+const nextRound = (props) => {
+    switch (props.phase) {
+
+        case GAME_PHASE:
+            props.changePhaseTo(FEEDING_PHASE);
+            props.clearSelection();
+            const fedCottages = calcFedCottages(props.board, props.buildings);
+            props.feedCottages(fedCottages);
+            props.changeMessage(message.goToFeedingPhase(fedCottages));
+            break;
+
+        case FEEDING_PHASE:
+            props.changePhaseTo(SCORING_PHASE);
+            props.changeMessage(message.goToGamePhase);
+            break;
+
+        case SCORING_PHASE:
+            props.changePhaseTo(GAME_PHASE);
+            props.newGame();
+            break;
+
+        default:
+            props.changeMessage('зачем нажимать? - нужно лочить кнопку!!!');
+    }
+};
+
+const placeSelectedResource = (placeResource, clearSelection, changeMessage) => {
+    placeResource();
+    clearSelection();
+    changeMessage(message.showPattern);
 };
 
 let instantEffect = null;
 const completeInstantEffect = () => {
     instantEffect = null
 };
-const placeSelectedBuilding = props => {
+const placeSelectedBuilding = (selectedPawn, placeBuilding, changeMessage) => {
     //invoke the building instant effect if present
-    if (props.selectedPawn.instantEffect) {
-        props.placeBuilding();
+    if (selectedPawn.instantEffect) {
+        placeBuilding();
         instantEffect = < InstantEffectFactory completeInstantEffect={completeInstantEffect} />;
-    } else { props.placeBuilding(); };
+    } else { placeBuilding(); };
 
-    props.changeMessage(message.successfulBuildingPlacement);
+    changeMessage(message.successfulBuildingPlacement);
 
 }
 
+//render button for the building/resource placing
+const renderPlacingButtons = (selectedSquare, selectedPawn, placeResource, clearSelection, changeMessage, placeBuilding) => {
+    if (selectedSquare && selectedPawn) {
+        return <button onClick={
+            () => {
+                if (selectedPawn.type === RESOURCE) { placeSelectedResource(placeResource, clearSelection, changeMessage) }
+                if (selectedPawn.type >= 0) { placeSelectedBuilding(selectedPawn, placeBuilding, changeMessage) }
+            }
+        }> Place the {selectedPawn.title}</button>;
+        /*
+                if (selectedPawn.type === RESOURCE) {
+                    return <button onClick={() => placeSelectedResource(placeResource, clearSelection, changeMessage)}> Place the {selectedPawn.title} </button>;
+                } else if (selectedPawn.type >= 0) {
+                    return <button onClick={() => placeSelectedBuilding(selectedPawn, placeBuilding, changeMessage)}> Place the {selectedPawn.title}</button>;
+                }*/
+    }
+}
 
-const renderPlacingButtons = props => {
-    if (props.selectedSquare) {
-        if (props.selectedPawn.type === RESOURCE) {
-            return <button onClick={() => placeSelectedResource(props)}> PLACE RESOURCE</button>;
-        } else if (props.selectedPawn.type >= 0) {
-            return <button onClick={() => placeSelectedBuilding(props)}> PLACE BUILDING</button>;
-        }
+//render button for the building unselect
+const renderUnselectBuildingButton = (selectedPawn, unselectPawn, changeMessage, selectSquare) => {
+    if (selectedPawn.type >= 0) {
+        return <button onClick={() => {
+            unselectPawn({});
+            selectSquare(null);
+            changeMessage(message.showPattern)
+        }}> Unselect the {selectedPawn.title}</button>;
     }
 }
 
@@ -86,13 +136,23 @@ const ToolbarWithResources = props => {
 
     return (
         <div className={styles.resourceSelector}>
+            <button onClick={() => nextRound(props)}>
+                {message.changePhaseBtn(props.phase)}
+            </button>
+            <br />
+
             {renderResources(props.phase)}
             {totalScore(props)}
             {props.message} <br />
-            {renderPlacingButtons(props)}
-            
+            {//render button for the building/resource placing
+                renderPlacingButtons(props.selectedSquare, props.selectedPawn, props.placeResource, props.clearSelection, props.changeMessage, props.placeBuilding)}
+
             {//render instant effects after building placement
-            instantEffect}
+                instantEffect}
+
+            {//render button for the building unselect
+                renderUnselectBuildingButton(props.selectedPawn, props.selectPawn, props.changeMessage, props.selectSquare)
+            }
         </div>
     );
 };
@@ -117,4 +177,9 @@ export default connect(mapStateToProps,
         changeMessage,
         placeBuilding,
         scoreTotal,
+        selectPawn,
+        selectSquare,
+        newGame,
+        feedCottages,
     })(ToolbarWithResources);
+
