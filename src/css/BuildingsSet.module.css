@@ -1,6 +1,19 @@
-.buildings{
-    display: grid;
-    align-content: space-around;
-    justify-content: start;	
-    grid-template-columns: 204px 204px 204px 204px;
+@media (min-width: 576px) {
+    .buildings7, .buildings8 {
+        -webkit-column-count: 4;
+        column-count: 4
+    }
+}
+
+/* can be 7 or 8  buildings*/
+@media (min-width: 1800px) {
+    .buildings7 {
+        -webkit-column-count: 7;
+        column-count: 7
+    }
+
+    .buildings8{
+        -webkit-column-count: 8;
+        column-count: 8
+    }
 }

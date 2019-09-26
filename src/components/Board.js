@@ -9,12 +9,16 @@ import styles from '../css/Board.module.css';
 const Board = (props) => {
   let boardClass = styles.board
   return (
-    <div className={boardClass}>
-      <ul>
-        {props.indexes.map((value) => <Square key={value} index={value}
-        />)}
-      </ul>
-    </div>
+    <>
+      <h4>Board:</h4>
+
+      <div className={boardClass}>
+        <ul>
+          {props.indexes.map((value) => <Square key={value} index={value}
+          />)}
+        </ul>
+      </div>
+    </>
   );
 }
 

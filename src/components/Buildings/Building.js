@@ -1,12 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import Col from 'react-bootstrap/Col';
+import Card from 'react-bootstrap/Card';
+
 
 import { fetchBuilding, selectPawn, changeMessage, selectSquare, scoreBuilding } from './../../actions';
 import data from './buildings.json';
 import { SCORING_PHASE } from './../constants';
 import { calcScore } from './scoring';
 import { rotateAndMirrorPattern, } from './patternHandler';
-import styles from  './../../css/Building.module.css';
+import styles from './../../css/Building.module.css';
 
 
 class Building extends React.Component {
@@ -59,14 +62,17 @@ class Building extends React.Component {
             return null;
         } else {
             return (
-                <div className={styles.building}>
-                    <div className={styles.buildingTitle}>{this.props.building.title}
-                        <img src={`/images/${this.props.building.type}.png`} alt={this.props.building.type} />
-                    </div>
-                    <div className={styles.buildingPattern}> {this.renderPattern()} </div>
-                    <div className={styles.buildingAbility}>{this.props.building.ability} </div>
-                    {this.renderScoring()}
-                </div>
+                    <Card bg="light" style={{ height: '16rem' }} className={styles.building}>
+                        <Card.Header style={{ height: '2.5rem' }} className={styles.buildingTitle}>{this.props.building.title}
+                            <img src={`/images/${this.props.building.type}.png`} alt={this.props.building.type} /></Card.Header>
+                        <Card.Body>
+                            <Card.Title className={styles.buildingPattern}> {this.renderPattern()} </Card.Title>
+                            <Card.Text>
+                                {this.props.building.ability}
+                                {this.renderScoring() }
+                            </Card.Text>
+                        </Card.Body>
+                    </Card>
             );
         }
     }

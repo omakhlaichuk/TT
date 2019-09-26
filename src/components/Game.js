@@ -1,4 +1,6 @@
 import React from 'react';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 import ToolbarWithResources from './ToolbarWithResources';
 import Board from './Board';
@@ -9,14 +11,14 @@ import styles from './../css/Game.module.css';
 
 const Game = () => {
     return (
-        <div>
-            <div id="toolbarBoard" className={styles.flexRow}>
-                <ToolbarWithResources />
-                <Board />
-                <RoundOverview />
-            </div>
+        <>
+            <Row id="toolbarBoard" className={styles.flexRow}>
+                <Col><Board /></Col>
+                <Col><ToolbarWithResources /></Col>
+                <Col><RoundOverview /></Col>
+            </Row>
             <BuildingsSet />
-        </div>
+        </>
     );
 }
 

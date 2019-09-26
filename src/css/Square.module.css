@@ -19,8 +19,6 @@
 
 
  .square {
-  margin: 0px;
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -41,7 +39,7 @@
       background-color: pink;
 
     }
-    img {
+    .square img {
       border: solid 2px white;
       max-width: 20px;
       max-height: 20px;

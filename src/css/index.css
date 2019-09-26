@@ -1,20 +1,20 @@
 .wood {
-    background-color: brown;
+    background-color: brown !important;
 }
 
 .wheat {
-  background-color: goldenrod;    
+  background-color: goldenrod !important;    
 }
 
 .brick {
-  background-color: red;
+  background-color: red !important;
 }
 
 .glass {
-  background-color: lightskyblue;
+  background-color: lightskyblue !important;
 }
 .stone {
-  background-color: gray;
+  background-color: grey !important;
 }
 
 .wild {

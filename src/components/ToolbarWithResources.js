@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import Button from 'react-bootstrap/Button';
 
 import InstantEffectFactory from './Buildings/InstantEffectFactory';
 import { calcFedCottages } from './Buildings/scoring';
@@ -75,12 +76,12 @@ const placeSelectedBuilding = (selectedPawn, placeBuilding, changeMessage) => {
 //render button for the building/resource placing
 const renderPlacingButtons = (selectedSquare, selectedPawn, placeResource, clearSelection, changeMessage, placeBuilding) => {
     if (selectedSquare && selectedPawn) {
-        return <button onClick={
+        return <Button variant="outline-secondary" onClick={
             () => {
                 if (selectedPawn.type === RESOURCE) { placeSelectedResource(placeResource, clearSelection, changeMessage) }
                 if (selectedPawn.type >= 0) { placeSelectedBuilding(selectedPawn, placeBuilding, changeMessage) }
             }
-        }> Place the {selectedPawn.title}</button>;
+        }> Place the {selectedPawn.title}</Button>;
         /*
                 if (selectedPawn.type === RESOURCE) {
                     return <button onClick={() => placeSelectedResource(placeResource, clearSelection, changeMessage)}> Place the {selectedPawn.title} </button>;
@@ -123,7 +124,7 @@ const renderResources = phase => {
     if (phase === GAME_PHASE) {
         return (
             <>
-                Available resources:
+                <h4>Resources:</h4>
                 <Resource id={0} />
                 <Resource id={1} />
                 <Resource id={2} />
@@ -136,14 +137,13 @@ const ToolbarWithResources = props => {
 
     return (
         <div className={styles.resourceSelector}>
-            <button onClick={() => nextRound(props)}>
-                {message.changePhaseBtn(props.phase)}
-            </button>
-            <br />
+
 
             {renderResources(props.phase)}
             {totalScore(props)}
-            {props.message} <br />
+            <br/>
+            <h4>You can:</h4>
+            <p>{props.message} </p>
             {//render button for the building/resource placing
                 renderPlacingButtons(props.selectedSquare, props.selectedPawn, props.placeResource, props.clearSelection, props.changeMessage, props.placeBuilding)}
 
@@ -153,6 +153,10 @@ const ToolbarWithResources = props => {
             {//render button for the building unselect
                 renderUnselectBuildingButton(props.selectedPawn, props.selectPawn, props.changeMessage, props.selectSquare)
             }
+
+            <button onClick={() => nextRound(props)}>
+                {message.changePhaseBtn(props.phase)}
+            </button>
         </div>
     );
 };
